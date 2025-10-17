@@ -4,5 +4,46 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	
+	<!-- Spring이 생명주기를 관리하는 객체 == Bean -->
+	<!-- **IOC 제어의 역전**  -->
+	
+	<!-- 
+	
+		* root-context.xml
+		서버가 구동되면서 세팅되어야하는 (Bean으로 등록) 내용들을 작성(DB접속, 트랜잭션처리, 외부모듈연결...)
+		서버 구동과 동시에 web.xml파일을 거쳐서 로딩되는 문서 == preloading
+	 -->
+	 
+	<!-- BasicDataSource를 등록 할건데 어떻게 ? 풀클래스명-->
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.dirver.OracleDriver"/><!-- jdbc class / value="패키지경로" / property 돌면 setter가 돈다.-->
+		<property name="url" value="jdbc:oracle:thin@115.90.212.20:10000:XE"/><!-- url은 필드명 -->
+		<property name="username" value="PSH08"/><!-- name은 spring lib 스프링 필드명이랑 맞춰야됨. -->
+		<property name="password" value="oracle"/>
+	</bean>
+	
+	<!-- 
+		DataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		dataSource.setUrl("jdbc:oracle:thin:@115.90.212.20:10000:XE");
+		dataSource.setUsername("PSH08");
+		dataSouce.setPassword("oracle");
+	 -->
+	
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+		<property name="configLocation" value="classpath:mybatis-config.xml"/><!-- target floder가 배포됨, classes가 최상위루트 -->
+		<property name="dataSource" ref="dataSource"/><!-- dataSource상단 dataSource 를 참조 -->
+	</bean>
+	
+	<!-- sqlSessionTemplate : 다형성(구현가능), bean 등록은 확정인데 setter 없음,  그냥 쓰면 코드상 기본생성자로 객체 생성하는데 기본생성자도 없음 => 근데 매개변수 생성자가 있음. =>  -->	
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+		<constructor-arg ref="sqlSessionFactory" /> <!-- 그래서 인자로 넘기려면 ref사용 -->
+	</bean>
+	<!-- 
+		SqlSession sqlSession = new SqlSessionTemplate(sqlSessionFactory);
+	 -->
+	 
+	 
+	
 </beans>

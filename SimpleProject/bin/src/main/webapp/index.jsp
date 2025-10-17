@@ -8,7 +8,6 @@
 </head>
 <body>
 
-	<jsp:forward page="/WEB-INF/views/main.jsp"/>
 	<h1>하이하이</h1>
 
 </body>
