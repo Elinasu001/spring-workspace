@@ -17,10 +17,10 @@
 	 
 	<!-- BasicDataSource를 등록 할건데 어떻게 ? 풀클래스명-->
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
-		<property name="driverClassName" value="oracle.jdbc.dirver.OracleDriver"/><!-- jdbc class / value="패키지경로" / property 돌면 setter가 돈다.-->
-		<property name="url" value="jdbc:oracle:thin@115.90.212.20:10000:XE"/><!-- url은 필드명 -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/><!-- jdbc class / value="패키지경로" / property 돌면 setter가 돈다.-->
+		<property name="url" value="jdbc:oracle:thin:@115.90.212.20:10000:XE"/><!-- url은 필드명 -->
 		<property name="username" value="PSH08"/><!-- name은 spring lib 스프링 필드명이랑 맞춰야됨. -->
-		<property name="password" value="oracle"/>
+		<property name="password" value="PSH081234"/>
 	</bean>
 	
 	<!-- 

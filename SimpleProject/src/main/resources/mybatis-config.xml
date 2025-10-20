@@ -10,7 +10,7 @@
 	
 	
 	<typeAliases>
-		<!-- <typeAlias type="com.su.member.model.vo.Member" alias="member"/> -->
+		<typeAlias type="com.kh.spring.member.model.dto.MemberDTO" alias="memberdto"/>
 	</typeAliases>
 	
 	
@@ -22,7 +22,7 @@
 	 
 	 
 	<mappers>
-		<!-- <mapper resource="/mapper/member-mapper.xml"/>-->
+		<mapper resource="mapper/member-mapper.xml"/>
 	</mappers> 
 
 </configuration>

@@ -29,5 +29,53 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	
+	<!-- 
+	
+		* Filter !
+		모든 요청 처리 전 공통적으로 수행해야하는 기능들을 클라이언트의 요청을 Servlet 가 받기 전 먼저 필터링해서 수행할 수 있도록함
+		web.xml이 기술해서 해당 작성내용이 서버 구동과 동시에 일어날 수 있도록 세팅
+		
+		+ 스프링에서 인코딩을 위한 필터
+		- org.springframework.web.filter.CharacterEncodingFilter
+		- <filter> + <filter-mapping>
+	 -->
+	 <filter>
+	 	<filter-name>encodingFilter</filter-name>
+	 	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	 	<init-param> <!--  필드에 값 올리기 -->
+	 		<param-name>encoding</param-name>
+	 		<param-value>UTF-8</param-value>
+	 	</init-param>
+	 	<init-param>
+	 		<param-name>forceEncoding</param-name>
+	 		<param-value>true</param-value>
+	 	</init-param>
+	 </filter>
+	 
+	 <filter-mapping>
+	 	<filter-name>encodingFilter</filter-name>
+	 	<url-pattern>/*</url-pattern>
+	 </filter-mapping>
+	 
+	 <!-- 
+	 	/* == 모든 요청에 대해서(확장자가 붙어있는 정적자원까지의 요청을 처리)
+	 	/login
+	 	/signup
+	 	/join
+	 	+
+	 	/style.css  -> 전부다 utf-8 필요하니 이걸로
+	 	/module.js
+	 	/image.png
+	 	/test.txt
+	 	
+	 	/ == 동적인 요청만 처리하겠음
+	 	/login
+	 	/signup
+	 	/join
+	 	
+	  -->
+	
 
 </web-app>

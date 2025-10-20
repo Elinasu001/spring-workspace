@@ -66,16 +66,21 @@
             </div>
             <div id="header_1_center"></div>
             <div id="header_1_right">
-                <!-- 로그인 전 -->
-                <a href="">회원가입</a>
-                <a data-toggle="modal" data-target="#loginModal">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-targer에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
-                
-                <!-- 로그인 후 -->
-                <!-- 
-                    <lable>홍길동님 환영합니다</label> &nbsp;&nbsp;
-                    <a href="">마이페이지</a>
-                    <a href="">로그아웃</a>
-                -->
+            	<!-- logout 요청처리 하는 handler -> controller에서 진행 -->
+           		<c:choose>
+	            	<c:when test="${empty sessionScope.loginMember}">
+		                <!-- 로그인 전 signup  - join -->
+		                <a href="join">회원가입</a>
+		                <a data-toggle="modal" data-target="#loginModal">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-targer에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
+	                </c:when>
+	              
+	               	<c:otherwise>
+	               	  	<!-- 로그인 후 --><!-- userName의 getter를 찾아 -->
+		                 <label>${sessionScope.loginMember.userName}님 환영합니다</label> &nbsp;&nbsp;
+		                 <a href="">마이페이지</a>
+		                 <a href="logout">로그아웃</a>
+	                </c:otherwise>
+            	</c:choose>
             </div>
         </div>
         <div id="header_2">
@@ -105,7 +110,7 @@
                         <label for="userId" class="mr-sm-2">ID : </label>
                         <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="userId" name="userId"> <br>
                         <label for="userPwd" class="mr-sm-2">Password : </label>
-                        <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="userPwd" name="userName">
+                        <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="userPwd" name="userPwd">
                     </div>
                            
                     <!-- Modal footer -->
