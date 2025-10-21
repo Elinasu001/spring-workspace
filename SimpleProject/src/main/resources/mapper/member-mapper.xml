@@ -2,7 +2,8 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
-
+	
+	<!-- 사용자는 평문을 입력할텐데 실제 db값은 암호화 되어있으니 그냥 select문은 사용할 수 없다.(로그인 안됨.) -->
 	<select id="login" resultType="memberdto">
 		SELECT
 		 	   USER_ID userId
@@ -14,8 +15,24 @@
 		       MEMBER
 		WHERE
 		       USER_ID = #{userId}
+		  		<!-- 
 		  AND
 		       USER_PWD = #{userPwd}
+		     	-->
 	</select>
+	
+	<insert id="signup" parameterType="memberdto">
+		INSERT
+		  INTO
+		       MEMBER
+		VALUES
+		       (
+		       #{userId}
+		     , #{userPwd}
+		     , #{userName}
+		     , #{email}
+		     , SYSDATE
+		       )
+	</insert>
 
 </mapper>

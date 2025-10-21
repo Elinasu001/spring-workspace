@@ -1,13 +1,12 @@
 package com.kh.spring.member.controller;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.member.model.dto.MemberDTO;
@@ -210,10 +209,64 @@ public class MemberController {
 		
 		log.info("{}", member); // 개발 - info 운영 - debug
 		
-		memberService.singUp(member); // 반환 타입이 없으니 Member~impl 에서 검증 해보기
+		memberService.singup(member); // 반환 타입이 없으니 Member~impl 에서 검증 해보기
 		
-		return "redirect:join";
+		return "main";
 	}
 	
+	
+	@GetMapping("mypage")
+	public String myPage(ModelAndView mv) {
+		return "member/my_page";
+	}
+	
+	@PostMapping("edit")
+	public String edit(MemberDTO member, HttpSession session) {
+		/*
+		 * 1_1) 404발생 : mapping값 확인하기
+		 * org.springframework.web.servlet.PageNotFound
+		 * 
+		 * 1_2) 405발생 : mapping값 잘씀 GET/POST를 잘못적었을 때
+		 * 
+		 * 
+		 * 1_3) 필드에 값이 잘 들어왔나?? - KEY값 확인
+		 * log.info("값 찍어보기 : {}", member);
+		 */
+		log.info("값 찍어보기 : {}", member);
+		
+		/*
+		 * 2. SQL문
+		 * UPDATE => MEMBER (특정 한명의 회원을 UPDATE) => PK? (WHERE 조건에 어떤 조건을 달아야 하지?) 
+		 * ID(PK) PWD NAME(UPDATE가능) EMAIL(UPDATE가능) ENROLLDATE => 그럼 PK WHERE 조건으로 사용해야겠다.
+		 * 
+		 * 2_1) 매개변수 MemberDTO타입의 memberId필드값 조건
+		 * UPDATE MEMBER SET USER_NAME = 입력한 값, EMAIL = 입력한 값 WHERE USER_ID = 넘어온 아이디
+		 * 
+		 */
+		
+		/*
+		 * Best Practice
+		 * 
+		 * 실무 권장
+		 * 
+		 * 컨트롤러에서 세션관리를 담당
+		 * 서비스에는 순수 비즈니스 로직만 구현
+		 * 서비스에서 HttpSession이 필요하다면 인자로 전달
+		 * //권장 : CONTROLLER에서 SESSION을 받아와서 SERVICE로 넘기는걸 선호 : ... Service는 비지니스로직은 아니라서 Controller에서 하는걸 권장
+		 * 
+		 */
+		
+		memberService.update(member, session);
+		
+		return "redirect:mypage";
+	}
+	
+	@PostMapping("delete")
+	public String delete(@RequestParam(value="userPwd") String userPwd, HttpSession session) {
+		
+		memberService.delete(userPwd, session);
+		
+		return "redirect:/";
+	}
 	
 }
