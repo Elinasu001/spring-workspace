@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.spring.board.model.mapper.BoardMapper"> <!-- BoardMapper의 fullClass명을 작성해준다. -->
+
+	<!-- findAll,findByBoardNo 증복 코드  -->
+	<sql id="boardColumn"> <!--  , 를 앞에 다는 이유는 뒤에다가 놓으면 값을 적어야 하기 때문 -->
+		SELECT
+			   BOARD_NO boardNo
+			 , BOARD_TITLE boardTitle
+			 , BOARD_WRITER boardWriter
+			 , COUNT
+			 , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as createDate
+			 , CHANGE_NAME changeName
+	</sql>
+	<!-- 중복 제거 설명용 -->
+	<!-- 
+	<sql id="fragment">
+		AND
+	          C = C
+	</sql>
+	
+	<select>
+		SELECT
+		       A
+		 FROM 
+		       A
+		WHERE
+		      <include refid="fragment"/> 신텍스에러남
+	</select>
+	<select>
+		SELECT
+		       B
+		 FROM 
+		       B
+		WHERE
+		      1 = 1
+		      <include refid="fragment"/> 신텍스 에러나니 비교연산자 1과 1이 같니 ? true를 넣는다 꽤 많다 : 작업할 때 편할려고
+	</select>
+	 -->
+
+	<select id="selectTotalCount" resultType="_int">
+		SELECT
+		       COUNT(*)
+		 FROM
+		       BOARD
+		WHERE
+		       STATUS = 'Y'
+	</select>
+	
+	<select id="findAll" resultType="boarddto">
+		<include refid="boardColumn"/> <!-- 중복 -->
+	     FROM
+	           BOARD
+	    WHERE 
+	           STATUS = 'Y'
+	    ORDER
+	       BY
+	           BOARD_NO DESC
+	</select>
+	
+	<insert id="save" parameterType="boarddto">
+		INSERT
+		  INTO
+		       BOARD
+		VALUES
+			  (
+			  SEQ_BNO.NEXTVAL
+			, #{boardTitle}
+			, #{boardWriter}
+			, #{boardContent}
+			, #{originName}
+			, #{changeName}
+			, 0
+			, DEFAULT
+			, DEFAULT
+			  ) 
+	</insert>
+	
+	<update id="increaseCount">
+		UPDATE
+		       BOARD
+		  SET
+		       COUNT = COUNT + 1
+		WHERE
+		       BOARD_NO = #{boardNo}
+		  AND
+		       STATUS = 'Y'
+	</update>
+	
+	<select id="findByBoardNo" parameterType="long" resultType="boarddto">
+			  <include refid="boardColumn"/> <!-- 중복 -->
+			, BOARD_CONTENT boardContent
+			, ORIGIN_NAME originName
+	    FROM
+	         BOARD
+	   WHERE
+	         BOARD_NO = #{boardNo}
+	     AND
+	         STATUS = 'Y'
+	</select>
+	
+	
+</mapper>

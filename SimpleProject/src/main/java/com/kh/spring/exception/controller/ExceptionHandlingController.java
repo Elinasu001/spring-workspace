@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.exception.AuthenticationException;
+import com.kh.spring.exception.BoardSaveFailedException;
 import com.kh.spring.exception.InvalidArgumentsException;
 import com.kh.spring.exception.TooLargeValueException;
 import com.kh.spring.exception.UserIdNotFoundException;
@@ -14,9 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ControllerAdvice
-public class ExceptionHandlingController {
+public class ExceptionHandlingController { // 전역 예외처리
 	// sqlException 추가 해주면 더 좋음
-	// 각가 다른 것들을 동일하게 사용하려면 RuntimeException 다 부모 타이ㅂㄹ로 상속받고 있으니 여기에 RuntimeException 타입을 넣어 공통으로 사용한다.
+	
+	// 각가 다른 것들을 동일하게 사용하려면 RuntimeException 다 부모 타입으로 상속받고 있으니 여기에 RuntimeException 타입을 넣어 공통으로 사용한다.
 	private ModelAndView createErrorResponse(RuntimeException e) {
 		//log.info("{}", e.getMessage());
 		ModelAndView mv = new ModelAndView();
@@ -53,6 +55,12 @@ public class ExceptionHandlingController {
 	// 마이페이지 인증/인가
 	@ExceptionHandler(AuthenticationException.class)
 	protected ModelAndView authenticationError(AuthenticationException e) {
+		return createErrorResponse(e);
+	}
+	
+	// 게시판 / ResponseStatusException 처리
+	@ExceptionHandler(BoardSaveFailedException.class)
+	protected ModelAndView boardSaveFailedError(BoardSaveFailedException e) {
 		return createErrorResponse(e);
 	}
 
