@@ -110,7 +110,7 @@
                     
                     <c:forEach begin="${ map.pi.startPage }" end="${ map.pi.endPage }" var="num">
 	                    <li class="page-item">
-	                   	 	<a class="page-link" href="board?page=${ num }">${ num }</a>
+	                   	 	<a class="page-link" href="boards?page=${ num }">${ num }</a>
 	                    </li>
                     </c:forEach>
                     
