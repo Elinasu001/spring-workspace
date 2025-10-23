@@ -98,4 +98,6 @@ public class AjaxController {
 		return board; // Gson == spring은 알아서 똑같이 json 형태로 넘겨준다 (물론 라이브러리 추가해야 가능)★★★★★★★★★★ 응답 데이터 : 문자열(json) , 자바스크립트로 열어본건 파싱 한 것
 	}
 	
+	// @ResponseBody 공통으로 들어갈 경우 따로 뺴는게 좋음
+	
 }

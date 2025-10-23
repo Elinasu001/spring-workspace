@@ -8,10 +8,12 @@
 <title>ajax_page</title>
 </head>
 <body>
-	<h1>AJAX</h1>
+	
 	
 	<jsp:include page="../include/header.jsp"/>
 	<div class="innerOuter">
+	
+	<h1>AJAX</h1>
 	<pre>
 	
 	웹페이지 전체를 새로고침하지 않고
@@ -175,7 +177,7 @@
 					
 					const imgEl = document.querySelector('#board-img');
 					
-					console.log(imgEl);
+					//console.log(imgEl);
 					
 					imgEl.src = result.changeName != undefined ? result.changeName : '';
 					
@@ -197,9 +199,29 @@
 	
 	</script>
 	
-	
-	
-	
+	<p>RevolutionController</p>
+	<button class="btn btn-lg btn-primary" onclick="btn1();">버튼1</button>
+	<br>
+	<button class="btn btn-lg btn-secondary" onclick="btn2();">버튼2</button>
+	<script>
+	 function btn1(){
+		$.ajax({
+			url: 'revol/c', 
+			type: 'post',
+			success: res => {
+				alert(res.boardTitle);
+			}
+		}); 
+	 }
+	 function btn2(){
+		 $.ajax({
+			 url: 'revol/d',
+			 success: res => {
+			 	alert(res.boardTitle);
+			}
+		}); 
+	 }
+	</script>
 	
 	<jsp:include page="../include/footer.jsp"/>
 	
