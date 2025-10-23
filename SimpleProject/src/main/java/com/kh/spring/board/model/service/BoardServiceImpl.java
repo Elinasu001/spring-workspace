@@ -164,7 +164,7 @@ public class BoardServiceImpl implements BoardService {
 			throw new InvalidArgumentsException("잘못된 요청입니다.");
 		}
 		
-		// 조회
+		// 조회해오기 및 답글
 		BoardDTO board = boardMapper.findBoardAndReply(boardNo);
 		
 		// 지워졌는데 조회되면 안되니, 조회가 안됐다면 null과 같다면 // 예외처리 이것도 밖으로 빼주기

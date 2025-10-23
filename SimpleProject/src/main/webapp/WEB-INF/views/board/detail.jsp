@@ -37,7 +37,7 @@
             <h2>게시글 상세보기</h2>
             <br>
 
-            <a class="btn btn-secondary" style="float:right;" href="">목록으로</a>
+            <a class="btn btn-secondary" style="float:right;" href="/spring/boards">목록으로</a>
             <br><br>
 
             <table id="contentArea" aligin="center" class="table">
@@ -55,19 +55,17 @@
                     <th>첨부파일</th>
                     
                     <c:choose>
-                    <c:when test="${ not empty board.changeName }">
-	                    <td colspan="3">
-	                        <a href="${ board.changeName }" download="${ board.changeName }">${ board.originName }</a>
-	                    </td>
-                    </c:when>
-                    <c:otherwise>
-                    	<td colspan="3">
-                    		파일이 존재하지 않습니다.
-                    	</td>
-                    </c:otherwise>
+	                    <c:when test="${ not empty board.changeName }">
+		                    <td colspan="3">
+		                        <a href="${ board.changeName }" download>${ board.originName }</a>
+		                    </td>
+	                    </c:when>
+	                    <c:otherwise>
+	                    	<td colspan="3">
+	                    		파일이 존재하지 않습니다.
+	                    	</td>
+	                    </c:otherwise>
                     </c:choose>
-                    
-                    
                 </tr>
                 <tr>
                     <th>내용</th>
@@ -94,26 +92,37 @@
                         </th>
                         <th style="vertical-align:middle"><button class="btn btn-secondary">등록하기</button></th> 
                     </tr>
-                    <tr>
-                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
-                    </tr>
+                    <c:choose>
+	                    <c:when test="${ not empty board.replies }">
+		                    <tr>
+		                        <td colspan="3">댓글(<span id="rcount">${ board.replyNo }</span>)</td>
+		                    </tr>
+	                    </c:when>
+	                    <c:otherwise>
+	                    	 <td colspan="3">댓글(<span id="rcount">0</span>)</td>
+	                    </c:otherwise>
+                    </c:choose>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>user02</th>
-                        <td>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</td>
-                        <td>2025-09-12</td>
-                    </tr>
-                    <tr>
-                        <th>user01</th>
-                        <td>재밌어요</td>
-                        <td>2025-09-11</td>
-                    </tr>
-                    <tr>
-                        <th>admin</th>
-                        <td>댓글입니다!!</td>
-                        <td>2025-09-10</td>
-                    </tr>
+                
+               <c:choose>
+				    <c:when test="${ not empty board.replies }">
+				        <c:forEach var="reply" items="${ board.replies }">
+				            <tr>
+				                <th>${ reply.replyWriter }</th>
+				                <td>${ reply.replyContent }</td>
+				                <td>${ reply.createDate }</td>
+				            </tr>
+				        </c:forEach>
+				    </c:when>
+				    <c:otherwise>
+				        <tr>
+				            <th colspan="3">댓글이 없습니다.</th>
+				        </tr>
+				    </c:otherwise>
+				</c:choose>
+
+                
                 </tbody>
             </table>
         </div>

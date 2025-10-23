@@ -31,7 +31,7 @@ public interface BoardService {
 	 */
 	int save(BoardDTO board, MultipartFile upfile, HttpSession session);
 	
-	// 게시글 상세보기(조회수 증가)
+	// 게시글 상세보기(+조회수 증가 +댓글달기)
 	/*
 	 * selectBoard();
 	 * findByxxx();

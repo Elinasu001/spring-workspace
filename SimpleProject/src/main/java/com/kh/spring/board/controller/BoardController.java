@@ -82,7 +82,7 @@ public class BoardController {
 		return "board/form";
 	}
 	
-	// 게시글 글쓰기
+	// 게시글 등록하기 > 글쓰기
 	@PostMapping
 	public String save(BoardDTO board, MultipartFile upfile, HttpSession session) { // 파일 용량
 		

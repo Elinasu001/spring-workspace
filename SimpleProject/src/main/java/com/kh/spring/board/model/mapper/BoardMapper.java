@@ -21,9 +21,9 @@ public interface BoardMapper {
 	// 조회수 증가
 	int increaseCount(Long boardNo);
 	
-	// 조회수 조회
+	// 게시글 조회
 	BoardDTO findByBoardNo(Long boardNo);
 	
-	// 댓글 달기
+	// 상세조회 및 댓글 달기
 	BoardDTO findBoardAndReply(Long boardNo);
 }

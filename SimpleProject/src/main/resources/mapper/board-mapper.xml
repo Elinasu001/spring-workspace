@@ -38,7 +38,8 @@
 		      <include refid="fragment"/> 신텍스 에러나니 비교연산자 1과 1이 같니 ? true를 넣는다 꽤 많다 : 작업할 때 편할려고
 	</select>
 	 -->
-
+	
+	<!-- 조회수 -->
 	<select id="selectTotalCount" resultType="_int">
 		SELECT
 		       COUNT(*)
@@ -48,6 +49,7 @@
 		       STATUS = 'Y'
 	</select>
 	
+	<!-- 게시글 리스트 조회 -->
 	<select id="findAll" resultType="boarddto">
 		<include refid="boardColumn"/> <!-- 중복 -->
 	     FROM
@@ -59,6 +61,7 @@
 	           BOARD_NO DESC
 	</select>
 	
+	<!-- 게시글 등록하기 -->
 	<insert id="save" parameterType="boarddto">
 		INSERT
 		  INTO
@@ -77,6 +80,7 @@
 			  ) 
 	</insert>
 	
+	<!-- 조회수 증가 -->
 	<update id="increaseCount">
 		UPDATE
 		       BOARD
@@ -88,6 +92,7 @@
 		       STATUS = 'Y'
 	</update>
 	
+	<!-- 게시글 BOARD_NO로 상세조회 -->
 	<select id="findByBoardNo" parameterType="long" resultType="boarddto">
 			  <include refid="boardColumn"/> <!-- 중복 -->
 			, BOARD_CONTENT boardContent
@@ -116,6 +121,7 @@
 		</collection>
 	</resultMap>
 	
+	<!-- 게시글 BOARD_NO로 상세조회 및 댓글달기 -->
 	<select id="findBoardAndReply" parameterType="long" resultMap="boardResultSet">
 		SELECT
 		       BOARD_NO boardNo

@@ -70,7 +70,7 @@
            		<c:choose>
 	            	<c:when test="${empty sessionScope.loginMember}">
 		                <!-- 로그인 전 signup  - join -->
-		                <a href="join">회원가입</a>
+		                <a href="/spring/join">회원가입</a>
 		                <a data-toggle="modal" data-target="#loginModal">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-targer에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
 	                </c:when>
 	              
