@@ -165,7 +165,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		// 조회
-		BoardDTO board = boardMapper.findByBoardNo(boardNo);
+		BoardDTO board = boardMapper.findBoardAndReply(boardNo);
 		
 		// 지워졌는데 조회되면 안되니, 조회가 안됐다면 null과 같다면 // 예외처리 이것도 밖으로 빼주기
 		if(board == null) {

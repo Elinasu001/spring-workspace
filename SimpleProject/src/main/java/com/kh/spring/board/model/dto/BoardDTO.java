@@ -22,4 +22,5 @@ public class BoardDTO {
 	private int count;
 	private String createDate;
 	private String status;
+	private List<ReplyDTO> replies;
 }

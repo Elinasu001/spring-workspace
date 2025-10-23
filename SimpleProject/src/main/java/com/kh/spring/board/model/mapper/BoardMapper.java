@@ -23,4 +23,7 @@ public interface BoardMapper {
 	
 	// 조회수 조회
 	BoardDTO findByBoardNo(Long boardNo);
+	
+	// 댓글 달기
+	BoardDTO findBoardAndReply(Long boardNo);
 }

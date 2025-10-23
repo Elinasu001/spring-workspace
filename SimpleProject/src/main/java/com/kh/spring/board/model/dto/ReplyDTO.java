@@ -22,7 +22,6 @@ public class ReplyDTO {
 	private String replyWriter;
 	private String createDate;
 	private String status;
-	private List<ReplyDTO> replies;
 	
 }
 

@@ -77,12 +77,12 @@ public class BoardController {
 	}
 	
 	// 게시글 등록하기 폼
-	@GetMapping("boards/form")
+	@GetMapping("/form")
 	public String toForm() {
 		return "board/form";
 	}
 	
-	// 게시글 등록하기
+	// 게시글 글쓰기
 	@PostMapping
 	public String save(BoardDTO board, MultipartFile upfile, HttpSession session) { // 파일 용량
 		

@@ -12,6 +12,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.spring.member.model.dto.MemberDTO" alias="memberdto"/>
 		<typeAlias type="com.kh.spring.board.model.dto.BoardDTO" alias="boarddto"/>
+		<typeAlias type="com.kh.spring.board.model.dto.ReplyDTO" alias="replydto"/>
 	</typeAliases>
 	
 	
