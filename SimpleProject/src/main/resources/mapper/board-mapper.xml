@@ -144,5 +144,22 @@
 		       BOARD_NO = #{boardNo}
 	</select>
 	
+	<!-- 댓글 달기 -->
+	<insert id="insertReply" parameterType="replydto">
+		INSERT
+		  INTO
+		       REPLY
+	    VALUES
+	           (
+	           SEQ_RNO.NEXTVAL
+	         , #{replyContent}
+	         , #{refBno}
+	         , #{replyWriter}
+	         , SYSDATE
+	         , DEFAULT
+	           ) 
+	
+	</insert>
+	
 	
 </mapper>

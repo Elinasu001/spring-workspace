@@ -88,9 +88,118 @@
 	 		
 	 	}
 	 </script>
-	
-	
+	 
+	 
+	 <h3>2. 댓글 작성하기</h3>
+	<!-- 
+		계획 : 글번호를 입력받고, 댓글 내용을 입력받은 뒤
+			  버튼을 클릭하면 AJAX요청을 보내 Reply테이블에 한 행 INSERT
+		
+	 -->
+	 <div class="form-group">
+	 	<div class="form-control">
+	 		글 번호 : <input type="text" id="num"	/>
+	 	</div>
+		<div class="form-control">
+			댓글 내용 : <input type="text" id="reply-content"/>
+		</div>	
+		<div class="form-control">
+			<button onclick="insert();" class="btn btn-sm btn-info">댓글 작성하기</button>
+		</div>
 	</div>
+	
+	<script>
+		function insert(){
+			
+			const boardNo = document.getElementById("num").value;
+			const replyContent = document.getElementById("reply-content").value;
+			
+			$.ajax({
+				url: 'replies',
+				type: 'post',
+				data: {
+					refBno : boardNo,
+					replyContent : replyContent
+				},
+				success: function(response){
+					console.log(response);
+					
+					if(response === "success"){
+						alert('댓글 작성 성공 ~');
+					} else{
+						document.getElementById("num").value = '';
+						document.getElementById("reply-content").value = '';
+					}
+					
+				}
+			})
+			
+		}
+	</script>
+	
+	<h4>AJAX요청으로 게시글 상세조회 해보기</h4>
+	
+	<div>
+	
+		<h3>게시글 자세히 보기</h3>
+		제목 : <p id="title"></p>
+		작성자 : <p id="writer"></p>
+		내용 : <p id="content"></p>
+		작성일 : <p id="date"></p>
+		
+		<img id="board-img">
+		<hr>
+		<div id="reply-area">
+		</div>
+		<br>
+		
+		게시글 번호를 입력하세요 : <input type="text" id="detail"/>
+		<button onclick="showdetail();">게시글 보여주세요</button>
+		
+	</div>
+	
+	<script>
+		function showdetail(){
+			const num = document.getElementById('detail').value;
+			
+			$.ajax({
+				url: `board/\${num}`,
+				type: 'get',
+				success:result => {
+					console.log(result);
+					// 응답 데이터를 화면에 출력
+					document.querySelector('#title').innerText = result.boardTitle;
+					document.querySelector('#writer').innertText = result.boardWriter;
+					document.querySelector('#content').innerText = result.boardContent;
+					document.querySelector('#date').innerText = result.createDate;
+					
+					const imgEl = document.querySelector('#board-img');
+					
+					console.log(imgEl);
+					
+					imgEl.src = result.changeName != undefined ? result.changeName : '';
+					
+					const replies = result.replies;
+					
+					const el = replies.map(e => {
+						return (
+							`<div>
+								<label style="330px"> 댓글 작성자 : \${e.replyWriter}</label>
+								<label style="330px"> 댓글 내용 : \${e.replyContent}</label>
+								<label style="330px"> 댓글 작성자 : \${e.createDate}</label>
+							</div>`)
+					}).join('');
+					
+					document.querySelector("#reply-area").innerHTML = el;
+				}
+			});
+		}
+	
+	</script>
+	
+	
+	
+	
 	
 	<jsp:include page="../include/footer.jsp"/>
 	

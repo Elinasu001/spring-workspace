@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +41,7 @@
             <a class="btn btn-secondary" style="float:right;" href="/spring/boards">목록으로</a>
             <br><br>
 
-            <table id="contentArea" aligin="center" class="table">
+            <table id="contentArea" align="center" class="table">
                 <tr>
                     <th width="100">제목</th>
                     <td colspan="3">${ board.boardTitle }</td>
@@ -55,17 +56,22 @@
                     <th>첨부파일</th>
                     
                     <c:choose>
+                    
 	                    <c:when test="${ not empty board.changeName }">
 		                    <td colspan="3">
-		                        <a href="${ board.changeName }" download>${ board.originName }</a>
+		                        <a href="${ board.changeName }" download="download">${ board.originName }</a>
 		                    </td>
 	                    </c:when>
+	                    
 	                    <c:otherwise>
 	                    	<td colspan="3">
 	                    		파일이 존재하지 않습니다.
 	                    	</td>
 	                    </c:otherwise>
+	                    
+	                    
                     </c:choose>
+                    
                 </tr>
                 <tr>
                     <th>내용</th>
@@ -92,16 +98,9 @@
                         </th>
                         <th style="vertical-align:middle"><button class="btn btn-secondary">등록하기</button></th> 
                     </tr>
-                    <c:choose>
-	                    <c:when test="${ not empty board.replies }">
-		                    <tr>
-		                        <td colspan="3">댓글(<span id="rcount">${ board.replyNo }</span>)</td>
-		                    </tr>
-	                    </c:when>
-	                    <c:otherwise>
-	                    	 <td colspan="3">댓글(<span id="rcount">0</span>)</td>
-	                    </c:otherwise>
-                    </c:choose>
+                    <tr>
+			            <td colspan="3">댓글(<span id="rcount">0</span>)</td>
+			        </tr>
                 </thead>
                 <tbody>
                 

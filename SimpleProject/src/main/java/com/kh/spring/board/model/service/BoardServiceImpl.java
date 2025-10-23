@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.board.model.dto.BoardDTO;
+import com.kh.spring.board.model.dto.ReplyDTO;
 import com.kh.spring.board.model.mapper.BoardMapper;
 import com.kh.spring.exception.AuthenticationException;
 import com.kh.spring.exception.BoardSaveFailedException;
@@ -183,6 +184,29 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int update(BoardDTO board) {
 		return 0;
+	}
+	
+	
+	@Override
+	public int insertReply(ReplyDTO reply, HttpSession session) {
+		MemberDTO loginMember = ((MemberDTO)session.getAttribute("loginMember"));
+		
+		if(loginMember == null) {
+			throw new InvalidArgumentsException("이 장면 꿈에서 봄");
+		}
+		
+		// 유효성 검증 (안하면 없은 걸로 인서트 하게 될 수 있음 => sqlExcepiton 부모키 못찾음)
+		Long boardNo = reply.getRefBno();
+		BoardDTO board = boardMapper.findByBoardNo(boardNo);
+		
+		if(board == null) {
+			throw new InvalidArgumentsException("올바르지 않은 게시글 번호입니다.");
+		}
+		
+		reply.setReplyWriter(loginMember.getUserId());
+		
+		return boardMapper.insertReply(reply);
+		
 	}
 
 }
