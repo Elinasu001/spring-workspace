@@ -179,12 +179,12 @@ public class MemberController {
 	
 	// session에서 값 지우는 거니깐 session 으로 진행
 	// 자바에서는 모든 건 객체로 이루어져있고 중요한건 type이다.
+	
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginMember");
 		return "redirect:/";
 	}
-	
 	
 	//회원가입 페이지
 	@GetMapping("join")

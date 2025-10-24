@@ -77,17 +77,17 @@
 	               	<c:otherwise>
 	               	  	<!-- 로그인 후 --><!-- userName의 getter를 찾아 -->
 		                 <label>${sessionScope.loginMember.userName}님 환영합니다</label> &nbsp;&nbsp;
-		                 <a href="mypage">마이페이지</a>
-		                 <a href="logout">로그아웃</a>
+		                 <a href="/spring/mypage">마이페이지</a>
+		                 <a href="/spring/logout">로그아웃</a>
 	                </c:otherwise>
             	</c:choose>
             </div>
         </div>
         <div id="header_2">
             <ul>
-                <li><a href="">HOME</a></li>
-                <li><a href="">공지사항</a></li>
-                <li><a href="boards?page=1">자유게시판</a></li>
+                <li><a href="/spring">HOME</a></li>
+                <li><a href="/spring/beef">안심식당</a></li>
+                <li><a href="/spring/boards">자유게시판</a></li>
                 <li><a href="">사진게시판</a></li>
             </ul>
         </div>
