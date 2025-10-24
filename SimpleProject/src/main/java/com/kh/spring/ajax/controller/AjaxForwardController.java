@@ -11,4 +11,5 @@ public class AjaxForwardController {
 		return "ajax/ajax";
 	}
 	
+	
 }

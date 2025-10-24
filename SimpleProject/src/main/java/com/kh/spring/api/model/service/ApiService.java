@@ -139,6 +139,58 @@ public class ApiService {
 	            throw new RuntimeException("API 응답을 읽는 데 실패했습니다.", e);
 	        }
 	    }
+	    
+	    
+	    public String requestBusan(int pageNo) {
+	    	
+	    	final String SERIVCE_KEY="?serviceKey=bafa38a635253c840faba210012e6455cd784e0696c222a50f143cbe54696f39";
+	    	
+	    	StringBuilder sb = new StringBuilder();
+	    	//https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=bafa38a635253c840faba210012e6455cd784e0696c222a50f143cbe54696f39&pageNo=1&numOfRows=10&resultType=json
+	    	// 값이 바뀔 것을 생각해서 구분함.
+	    	sb.append("https://apis.data.go.kr/6260000/FoodService/getFoodKr");
+	    	sb.append(SERIVCE_KEY);
+	    	sb.append("&pageNo=" + pageNo);
+	    	sb.append("&numOfRows=6");
+	    	sb.append("&resultType=json");
+	    	
+	    	URI uri = null;
+	    	try {
+				uri = new URI(sb.toString());
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+	    	
+	    	String apiResponse = new RestTemplate().getForObject(uri, String.class);
+	    	
+	    	return apiResponse;
+	    	
+	    }
+	    
+	    
+	    public String requestBusanDetail(int num) {
+	    	final String SERIVCE_KEY="?serviceKey=bafa38a635253c840faba210012e6455cd784e0696c222a50f143cbe54696f39";
+	    	
+	    	StringBuilder sb = new StringBuilder();
+	    	//https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=bafa38a635253c840faba210012e6455cd784e0696c222a50f143cbe54696f39&pageNo=1&numOfRows=10&resultType=json
+	    	// 값이 바뀔 것을 생각해서 구분함.
+	    	sb.append("https://apis.data.go.kr/6260000/FoodService/getFoodKr");
+	    	sb.append(SERIVCE_KEY);
+	    	sb.append("&pageNo=1");
+	    	sb.append("&numOfRows=1");
+	    	sb.append("&resultType=json");
+	    	sb.append("&UC_SEQ="+num);
+	    	URI uri = null;
+	    	try {
+				uri = new URI(sb.toString());
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+	    	
+	    	String apiResponse = new RestTemplate().getForObject(uri, String.class);
+	    	
+	    	return apiResponse;
+	    }
 	
 	
 }

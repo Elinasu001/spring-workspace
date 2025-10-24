@@ -1,11 +1,11 @@
 package com.kh.spring.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kh.spring.ajax.dto.AjaxResponse;
 import com.kh.spring.api.model.service.ApiService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,9 +28,19 @@ public class ApiController {
 	
 	@GetMapping("blog")
 	public String getBlog(@RequestParam(name="query") String query) {
-		
 		return apiService.requestBlog(query);
-		
+	}
+	
+	@GetMapping("busan")
+	public String getBusan(@RequestParam(name="pageNo") int pageNo) {
+		return apiService.requestBusan(pageNo);
+	}
+	
+	
+	@GetMapping("busan/{num}")
+	public String getBusanDetail(@PathVariable("num") int num) {
+		System.out.println("ApiController");
+	    return apiService.requestBusanDetail(num);
 	}
 	
 }
